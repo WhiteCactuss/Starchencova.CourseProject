@@ -30,4 +30,10 @@
     <PackageReference Include="ReactiveUI.WPF" Version="19.5.41" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Window3.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
 </Project>

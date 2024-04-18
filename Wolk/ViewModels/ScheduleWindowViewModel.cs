@@ -1,17 +1,27 @@
 ﻿using ReactiveUI;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
+using Wolk.ApplicatonDbContext;
 using Wolk.Entites;
+using ReactiveUI;
 
 namespace Wolk.ViewModels
 {
     public class ScheduleWindowViewModel : ReactiveObject
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+        public ObservableCollection<string> Classes { get; set; }
+        public string SelectedClass { get; set; }
+        public string NewItem { get; set; }
 
+        public ICommand AddItemCommand { get; set; }
 
         private List<Audience> audiences;
         private string NumberAudience;
@@ -78,6 +88,59 @@ namespace Wolk.ViewModels
                     }
 
                 });*/
+
+        public ScheduleWindowViewModel()
+        {
+            Classes = new ObservableCollection<string> { "Teacher", "Group", "Subject", "Audience" };
+            SelectedClass = Classes.FirstOrDefault();
+
+            AddItemCommand = ReactiveCommand.Create(AddItem);
+        }
+        private void AddItem()
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                switch (SelectedClass)
+                {
+                    case "Teacher":
+                        var newTeacher = new Teacher { LastName = NewItem, FirstName = NewItem, MiddleName = NewItem };
+                        db.Teachers.Add(newTeacher);
+                        db.SaveChanges();
+                        MessageBox.Show("Schedule created successfully!");
+                        break;
+                    case "Group":
+                        var newGroup = new Group { GroupName = NewItem };
+                        db.Groups.Add(newGroup);
+                        db.SaveChanges();
+                        MessageBox.Show("Schedule created successfully!");
+                        break;
+                    case "Subject":
+                        var newSubject = new Subject { NameSubject = NewItem };
+                        db.Subjects.Add(newSubject);
+                        db.SaveChanges();
+                        MessageBox.Show("Schedule created successfully!");
+                        break;
+                    case "Audience":
+                        var newAudience = new Audience { NumberAudience = Convert.ToInt32(NewItem) };
+                        db.Audiences.Add(newAudience);
+                        db.SaveChanges();
+                        MessageBox.Show("Schedule created successfully!");
+                        break;
+                    default:
+                        MessageBox.Show("Некорректный ввод");
+                        break;
+                }
+
+                db.SaveChanges();
+            }
+
+            NewItem = string.Empty;
+            OnPropertyChanged(nameof(NewItem));
+        }
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
     }
 }

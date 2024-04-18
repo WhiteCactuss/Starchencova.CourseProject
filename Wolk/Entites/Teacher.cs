@@ -15,7 +15,7 @@ namespace Wolk.Entites
 
         public Schedule Schedule { get; set; }
 
-        private Teacher() { }
+        public Teacher() { }
 
         public Teacher(Guid teacherId, string firstname, string lastname, string? middlename)
         {

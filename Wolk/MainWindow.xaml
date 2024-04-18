@@ -355,8 +355,10 @@
                 </Grid>
             </Grid>
             <StackPanel Grid.Row="3" Orientation="Horizontal">
-                <Button  Width="100" Height="30" Content="Новое окно" Click="Button_Click" />
-                <Button  Content="Сохранить расписание" FontSize="14" FontWeight="Bold" Width="160"/>
+                <Button Height="30" Content="Новое окно" Click="Button_Click" FontSize="14" FontWeight="Bold"/>
+                <Button Content="Сохранить расписание" FontSize="14" FontWeight="Bold" Click="SaveButton_Click"/>
+                <Button Height="30" Content="Добавить данные" Click="CreateButton_Click" FontSize="14" FontWeight="Bold"/>
+                <Button Height="30" Content="Удалить данные" Click="DeleteButton_Click" FontSize="14" FontWeight="Bold"/>
             </StackPanel>
         </Grid>
     </Grid>

@@ -12,7 +12,7 @@ namespace Wolk.Entites
         public string GroupName { get; set; }
 
         public Schedule Schedule { get; set; }
-        private Group() { }
+        public Group() { }
         
         public Group(Guid groupId, string groupName)
         {

@@ -13,7 +13,7 @@ namespace Wolk.Entites
 
         public Schedule Schedule { get; set; }
 
-        private Subject() { }
+        public Subject() { }
 
         public Subject(Guid subjectId, string nameObj)
         {
