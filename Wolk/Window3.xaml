@@ -3,20 +3,23 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:Wolk.ViewModels"
         xmlns:local="clr-namespace:Wolk"
         mc:Ignorable="d"
         Title="Window3" Height="200" Width="300">
+
+    <Window.DataContext>
+        <vm:DeleteDataViewModel />
+    </Window.DataContext>
+
     <Grid>
 
         <TextBlock Text="Выберите тип данных" Margin="0,20,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="200"/>
-        <ComboBox x:Name="ClassComboBox" HorizontalAlignment="Center" VerticalAlignment="Top" Width="200" Margin="0,40,0,0"
-  ItemsSource="{Binding Course, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="NameCourse" SelectedItem="{Binding SelecteObj, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="ClassComboBox_SelectionChanged"/>
 
-        <ComboBox x:Name="DeleteDataComboBox" HorizontalAlignment="Center" VerticalAlignment="Top" Width="200" Margin="0,80,0,0" 
-          ItemsSource="{Binding YourViewModel.Courses}" SelectedItem="{Binding SelectedCourse}"
-          DisplayMemberPath="NameTeacher" SelectionChanged="DeleteDataComboBox_SelectionChanged"/>
+        <ComboBox ItemsSource="{Binding Classes}" SelectedItem="{Binding SelectedClass, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="200" Margin="0,40,0,0" />
+        <ComboBox ItemsSource="{Binding Datas}" SelectedItem="{Binding SelectedDatas, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="200" Margin="0,80,0,0" />
 
-        <Button Content = "delete данные" Click="DeleteButton_Click" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,130,0,0"/>
-
+        <Button Content="Удалить данные" Command="{Binding DeleteItemCommand}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,130,0,0" Click="Button_Click"/>
+   
     </Grid>
 </Window>

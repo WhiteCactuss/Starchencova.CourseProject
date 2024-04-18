@@ -17,14 +17,16 @@ namespace Wolk.Entites
         public Guid SubjectId {  get; set; }
         public Guid TeacherId { get; set; }
         public Guid AudienceId { get; set; }
+        public Guid GroupId { get; set; }
 
         public Subject Subject { get; set; }
         public Teacher Teacher { get; set; }
         public Audience Audience { get; set; }
+        public Group Group { get; set; }
 
         public Schedule() { }
         
-        public Schedule(Guid scheduleid, DateTime day, int numberLesson, Guid subjectId,Guid teacherId, Guid audienceId)
+        public Schedule(Guid scheduleid, DateTime day, int numberLesson, Guid subjectId,Guid teacherId, Guid audienceId, Guid groupId)
         {
             ScheduleId = Guid.NewGuid();
             Day = day;
@@ -32,6 +34,7 @@ namespace Wolk.Entites
             SubjectId = subjectId;
             TeacherId = teacherId;
             AudienceId = audienceId;
+            GroupId = groupId;
         }
     }
 }

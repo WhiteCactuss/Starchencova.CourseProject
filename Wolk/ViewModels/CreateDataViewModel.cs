@@ -14,7 +14,7 @@ using ReactiveUI;
 
 namespace Wolk.ViewModels
 {
-    public class ScheduleWindowViewModel : ReactiveObject
+    public class CreateDataViewModel : ReactiveObject
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public ObservableCollection<string> Classes { get; set; }
@@ -89,9 +89,9 @@ namespace Wolk.ViewModels
 
                 });*/
 
-        public ScheduleWindowViewModel()
+        public CreateDataViewModel()
         {
-            Classes = new ObservableCollection<string> { "Teacher", "Group", "Subject", "Audience" };
+            Classes = new ObservableCollection<string> { "Audience", "Group", "Subject", "Teacher" };
             SelectedClass = Classes.FirstOrDefault();
 
             AddItemCommand = ReactiveCommand.Create(AddItem);
@@ -102,29 +102,21 @@ namespace Wolk.ViewModels
             {
                 switch (SelectedClass)
                 {
-                    case "Teacher":
-                        var newTeacher = new Teacher { LastName = NewItem, FirstName = NewItem, MiddleName = NewItem };
-                        db.Teachers.Add(newTeacher);
-                        db.SaveChanges();
-                        MessageBox.Show("Schedule created successfully!");
+                    case "Audience":
+                        var newAudience = new Audience { NumberAudience = NewItem };
+                        db.Audiences.Add(newAudience);
                         break;
                     case "Group":
                         var newGroup = new Group { GroupName = NewItem };
                         db.Groups.Add(newGroup);
-                        db.SaveChanges();
-                        MessageBox.Show("Schedule created successfully!");
+                        break;
+                    case "Teacher":
+                        var newTeacher = new Teacher { LastName = NewItem, FirstName = NewItem, MiddleName = NewItem };
+                        db.Teachers.Add(newTeacher);
                         break;
                     case "Subject":
                         var newSubject = new Subject { NameSubject = NewItem };
                         db.Subjects.Add(newSubject);
-                        db.SaveChanges();
-                        MessageBox.Show("Schedule created successfully!");
-                        break;
-                    case "Audience":
-                        var newAudience = new Audience { NumberAudience = Convert.ToInt32(NewItem) };
-                        db.Audiences.Add(newAudience);
-                        db.SaveChanges();
-                        MessageBox.Show("Schedule created successfully!");
                         break;
                     default:
                         MessageBox.Show("Некорректный ввод");
@@ -132,15 +124,16 @@ namespace Wolk.ViewModels
                 }
 
                 db.SaveChanges();
+                MessageBox.Show("Данные успешно добавлены!");
             }
 
             NewItem = string.Empty;
             OnPropertyChanged(nameof(NewItem));
         }
+
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
     }
 }
