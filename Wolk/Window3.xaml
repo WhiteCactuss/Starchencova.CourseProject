@@ -17,9 +17,10 @@
         <TextBlock Text="Выберите тип данных" Margin="0,20,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="200"/>
 
         <ComboBox ItemsSource="{Binding Classes}" SelectedItem="{Binding SelectedClass, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="200" Margin="0,40,0,0" />
-        <ComboBox ItemsSource="{Binding Datas}" SelectedItem="{Binding SelectedDatas, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="200" Margin="0,80,0,0" />
+        <ComboBox ItemsSource="{Binding Datas}"  SelectedItem="{Binding SelectedDatas, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="200" Margin="0,80,0,0" />
 
-        <Button Content="Удалить данные" Command="{Binding DeleteItemCommand}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,130,0,0" Click="Button_Click"/>
+        <Button Content="Удалить данные" Command="{Binding DeleteItemCommand}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,130,0,0"/>
    
     </Grid>
 </Window>
+<!--DisplayMemberPath="DatasClass"-->

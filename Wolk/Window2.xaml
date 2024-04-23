@@ -17,7 +17,7 @@
 
         <ComboBox ItemsSource="{Binding Classes}" SelectedItem="{Binding SelectedClass, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="200" Margin="0,40,0,0" />
         <TextBox Text="{Binding NewItem, Mode=TwoWay}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="200" Margin="0,80,0,0"/>
-        <Button Content="Добавить данные" Command="{Binding AddItemCommand}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,130,0,0" Click="Button_Click"/>
+        <Button Content="Добавить данные" Command="{Binding AddItemCommand}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,130,0,0"/>
     
     </Grid>
 </Window>

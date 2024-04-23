@@ -28,8 +28,9 @@ namespace Wolk.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("NumberAudience")
-                        .HasColumnType("int");
+                    b.Property<string>("NumberAudience")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("AudienceId");
 
@@ -46,12 +47,7 @@ namespace Wolk.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("ScheduleId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("GroupId");
-
-                    b.HasIndex("ScheduleId");
 
                     b.ToTable("Groups");
                 });
@@ -68,6 +64,9 @@ namespace Wolk.Migrations
                     b.Property<DateTime>("Day")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid>("GroupId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("NumberLesson")
                         .HasColumnType("int");
 
@@ -80,6 +79,9 @@ namespace Wolk.Migrations
                     b.HasKey("ScheduleId");
 
                     b.HasIndex("AudienceId")
+                        .IsUnique();
+
+                    b.HasIndex("GroupId")
                         .IsUnique();
 
                     b.HasIndex("SubjectId")
@@ -112,15 +114,8 @@ namespace Wolk.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("FirstName")
+                    b.Property<string>("FLMName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MiddleName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("TeacherId");
@@ -128,22 +123,17 @@ namespace Wolk.Migrations
                     b.ToTable("Teachers");
                 });
 
-            modelBuilder.Entity("Wolk.Entites.Group", b =>
-                {
-                    b.HasOne("Wolk.Entites.Schedule", "Schedule")
-                        .WithMany()
-                        .HasForeignKey("ScheduleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Schedule");
-                });
-
             modelBuilder.Entity("Wolk.Entites.Schedule", b =>
                 {
                     b.HasOne("Wolk.Entites.Audience", "Audience")
                         .WithOne("Schedule")
                         .HasForeignKey("Wolk.Entites.Schedule", "AudienceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Wolk.Entites.Group", "Group")
+                        .WithOne("Schedule")
+                        .HasForeignKey("Wolk.Entites.Schedule", "GroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -161,12 +151,20 @@ namespace Wolk.Migrations
 
                     b.Navigation("Audience");
 
+                    b.Navigation("Group");
+
                     b.Navigation("Subject");
 
                     b.Navigation("Teacher");
                 });
 
             modelBuilder.Entity("Wolk.Entites.Audience", b =>
+                {
+                    b.Navigation("Schedule")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Wolk.Entites.Group", b =>
                 {
                     b.Navigation("Schedule")
                         .IsRequired();

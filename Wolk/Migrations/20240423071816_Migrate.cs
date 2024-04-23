@@ -16,11 +16,23 @@ namespace Wolk.Migrations
                 columns: table => new
                 {
                     AudienceId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    NumberAudience = table.Column<int>(type: "int", nullable: false)
+                    NumberAudience = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Audiences", x => x.AudienceId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Groups",
+                columns: table => new
+                {
+                    GroupId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    GroupName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Groups", x => x.GroupId);
                 });
 
             migrationBuilder.CreateTable(
@@ -40,9 +52,7 @@ namespace Wolk.Migrations
                 columns: table => new
                 {
                     TeacherId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MiddleName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    FLMName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -58,7 +68,8 @@ namespace Wolk.Migrations
                     NumberLesson = table.Column<int>(type: "int", nullable: false),
                     SubjectId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     TeacherId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    AudienceId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    AudienceId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    GroupId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -68,6 +79,12 @@ namespace Wolk.Migrations
                         column: x => x.AudienceId,
                         principalTable: "Audiences",
                         principalColumn: "AudienceId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Schedules_Groups_GroupId",
+                        column: x => x.GroupId,
+                        principalTable: "Groups",
+                        principalColumn: "GroupId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Schedules_Subjects_SubjectId",
@@ -83,34 +100,16 @@ namespace Wolk.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Groups",
-                columns: table => new
-                {
-                    GroupId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    GroupName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ScheduleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Groups", x => x.GroupId);
-                    table.ForeignKey(
-                        name: "FK_Groups_Schedules_ScheduleId",
-                        column: x => x.ScheduleId,
-                        principalTable: "Schedules",
-                        principalColumn: "ScheduleId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Groups_ScheduleId",
-                table: "Groups",
-                column: "ScheduleId");
-
             migrationBuilder.CreateIndex(
                 name: "IX_Schedules_AudienceId",
                 table: "Schedules",
                 column: "AudienceId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Schedules_GroupId",
+                table: "Schedules",
+                column: "GroupId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
@@ -130,13 +129,13 @@ namespace Wolk.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Groups");
-
-            migrationBuilder.DropTable(
                 name: "Schedules");
 
             migrationBuilder.DropTable(
                 name: "Audiences");
+
+            migrationBuilder.DropTable(
+                name: "Groups");
 
             migrationBuilder.DropTable(
                 name: "Subjects");

@@ -9,20 +9,16 @@ namespace Wolk.Entites
     public class Teacher
     {
         public Guid TeacherId { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string? MiddleName { get; set; }
+        public string FLMName { get; set; }
 
         public Schedule Schedule { get; set; }
 
         public Teacher() { }
 
-        public Teacher(Guid teacherId, string firstname, string lastname, string? middlename)
+        public Teacher(Guid teacherId, string flmname)
         {
             TeacherId = Guid.NewGuid();
-            FirstName = firstname;
-            LastName = lastname;
-            MiddleName = middlename;
+            FLMName = flmname;
         }
     }
 }
