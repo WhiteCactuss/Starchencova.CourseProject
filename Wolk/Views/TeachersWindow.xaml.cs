@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Wolk
+namespace Wolk.Views
 {
     /// <summary>
-    /// Логика взаимодействия для Window2.xaml
+    /// Логика взаимодействия для TeacherWindow.xaml
     /// </summary>
-    public partial class Window3 : Window
+    public partial class TeacherWindow : Window
     {
-        public Window3()
+        public TeacherWindow()
         {
             InitializeComponent();
         }

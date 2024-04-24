@@ -13,9 +13,9 @@ namespace Wolk.Entites
 
         public Schedule Schedule { get; set; }
 
-        public Subject() { }
+        private Subject() { }
 
-        public Subject(Guid subjectId, string nameObj)
+        public Subject(string nameObj)
         {
             SubjectId = Guid.NewGuid();
             NameSubject = nameObj;

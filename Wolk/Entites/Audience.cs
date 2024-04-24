@@ -13,9 +13,9 @@ namespace Wolk.Entites
 
         public Schedule Schedule { get; set; }
 
-        public Audience() { }
+        private Audience() { }
         
-        public Audience(Guid audience, string numberAudience)
+        public Audience(string numberAudience)
         {
             AudienceId = Guid.NewGuid();
             NumberAudience = numberAudience;

@@ -25,7 +25,7 @@ namespace Wolk
         {
             InitializeComponent();
             //LoadComboBoxes();
-            ScheduleViewModel viewModel = new ScheduleViewModel();
+            //ScheduleViewModel viewModel = new ScheduleViewModel();
             //DataContext = viewModel;
         }
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -33,19 +33,6 @@ namespace Wolk
             Window1 taskWindow = new Window1();
             taskWindow.Show();
         }
-
-        private void CreateButton_Click(object sender, RoutedEventArgs e)
-        {
-            Window2 createdata = new Window2();
-            createdata.Show();
-        }
-
-        private void DeleteButton_Click(object sender, RoutedEventArgs e)
-        {
-            Window3 deletedata = new Window3();
-            deletedata.Show();
-        }
-
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
 

@@ -4,20 +4,26 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Wolk"
-        xmlns:vm="clr-namespace:Wolk.ViewModels"
         mc:Ignorable="d"
-        Title="Window2" Height="200" Width="300">
-
-    <Window.DataContext>
-        <vm:CreateDataViewModel />
-    </Window.DataContext>
+        Title="Window2" Height="270" Width="565">
 
     <Grid>
-        <TextBlock Text="Выберите тип данных" Margin="0,20,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="200"/>
+        <TextBox Text="{Binding SearchItem, Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="220" Margin="10,0,0,0"/>
+        <Button Content="Поиск" Command="{Binding SearchItemCommand}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="86"/>
 
-        <ComboBox ItemsSource="{Binding Classes}" SelectedItem="{Binding SelectedClass, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="200" Margin="0,40,0,0" />
-        <TextBox Text="{Binding NewItem, Mode=TwoWay}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="200" Margin="0,80,0,0"/>
-        <Button Content="Добавить данные" Command="{Binding AddItemCommand}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,130,0,0"/>
-    
+        <TextBlock Text="Выберите тип данных" Margin="340,29,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200"/>
+        <ComboBox ItemsSource="{Binding Classes}" SelectedItem="{Binding SelectedClass, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="340,50,0,0" />
+        <TextBox Text="{Binding NewItem, Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="340,84,0,0"/>
+
+        <ListView d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,30,240,10">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Datas}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <Button Content="Добавить данные" Command="{Binding AddItemCommand}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="340,190,0,0" Width="200"/>
+        <Button Content="Удалить данные" Command="{Binding DeleteItemCommand}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="340,224,0,0" Width="200"/>
     </Grid>
 </Window>

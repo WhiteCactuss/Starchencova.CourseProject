@@ -24,9 +24,9 @@ namespace Wolk.Entites
         public Audience Audience { get; set; }
         public Group Group { get; set; }
 
-        public Schedule() { }
+        private Schedule() { }
         
-        public Schedule(Guid scheduleid, DateTime day, int numberLesson, Guid subjectId,Guid teacherId, Guid audienceId, Guid groupId)
+        public Schedule(DateTime day, int numberLesson, Guid subjectId,Guid teacherId, Guid audienceId, Guid groupId)
         {
             ScheduleId = Guid.NewGuid();
             Day = day;

@@ -32,7 +32,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Window3.xaml.cs">
+    <Compile Update="Views\AddGroupWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\GroupsWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

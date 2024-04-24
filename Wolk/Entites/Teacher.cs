@@ -13,9 +13,9 @@ namespace Wolk.Entites
 
         public Schedule Schedule { get; set; }
 
-        public Teacher() { }
+        private Teacher() { }
 
-        public Teacher(Guid teacherId, string flmname)
+        public Teacher(string flmname)
         {
             TeacherId = Guid.NewGuid();
             FLMName = flmname;

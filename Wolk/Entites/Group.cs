@@ -9,15 +9,15 @@ namespace Wolk.Entites
     public class Group
     {
         public Guid GroupId { get; set; }
-        public string GroupName { get; set; }
+        public string NameGroup { get; set; }
 
         public Schedule Schedule { get; set; }
-        public Group() { }
+        private Group() { }
         
-        public Group(Guid groupId, string groupName)
+        public Group(string nameGroup)
         {
             GroupId = Guid.NewGuid();
-            GroupName = groupName;
+            NameGroup = nameGroup;
         }
     }
 }

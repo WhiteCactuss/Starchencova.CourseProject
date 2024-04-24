@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,18 +11,15 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Wolk.ApplicatonDbContext;
-using Wolk.Entites;
-using Wolk.Views;
 
-namespace Wolk
+namespace Wolk.Views
 {
     /// <summary>
-    /// Логика взаимодействия для Window1.xaml
+    /// Логика взаимодействия для GroupsWindow.xaml
     /// </summary>
-    public partial class Window1 : Window
+    public partial class GroupsWindow : Window
     {
-        public Window1()
+        public GroupsWindow()
         {
             InitializeComponent();
         }
