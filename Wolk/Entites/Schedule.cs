@@ -10,9 +10,9 @@ namespace Wolk.Entites
 {
     public class Schedule
     {
-        public Guid ScheduleId { get; set; }
-        public DateTime Day { get; set; }
-        public int NumberLesson {  get; set; }
+        public Guid Id { get; set; }
+        public DateTime Date { get; set; }
+        public int LessonNumber {  get; set; }
 
         public Guid SubjectId {  get; set; }
         public Guid TeacherId { get; set; }
@@ -25,12 +25,32 @@ namespace Wolk.Entites
         public Group Group { get; set; }
 
         private Schedule() { }
-        
-        public Schedule(DateTime day, int numberLesson, Guid subjectId,Guid teacherId, Guid audienceId, Guid groupId)
+
+        public Schedule(Guid id, DateTime date, int lessonNumber, Subject subject, Teacher teacher, Audience audience, Group group)
         {
-            ScheduleId = Guid.NewGuid();
-            Day = day;
-            NumberLesson = numberLesson;
+            Id = id;
+
+            Date = date;
+            LessonNumber = lessonNumber;
+
+            Subject = subject;
+            SubjectId = subject.Id;
+
+            Teacher = teacher;
+            TeacherId = teacher.Id;
+
+            Audience = audience;
+            AudienceId = audience.Id;
+
+            Group = group;
+            GroupId = group.Id;
+        }
+
+        public Schedule(DateTime data, int lessonNumber, Guid subjectId, Guid teacherId, Guid audienceId, Guid groupId)
+        {
+            Id = Guid.NewGuid();
+            Date = data;
+            LessonNumber = lessonNumber;
             SubjectId = subjectId;
             TeacherId = teacherId;
             AudienceId = audienceId;

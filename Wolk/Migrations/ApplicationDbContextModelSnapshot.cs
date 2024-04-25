@@ -24,50 +24,50 @@ namespace Wolk.Migrations
 
             modelBuilder.Entity("Wolk.Entites.Audience", b =>
                 {
-                    b.Property<Guid>("AudienceId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("NumberAudience")
+                    b.Property<string>("Number")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("AudienceId");
+                    b.HasKey("Id");
 
                     b.ToTable("Audiences");
                 });
 
             modelBuilder.Entity("Wolk.Entites.Group", b =>
                 {
-                    b.Property<Guid>("GroupId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("GroupName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("GroupId");
+                    b.HasKey("Id");
 
                     b.ToTable("Groups");
                 });
 
             modelBuilder.Entity("Wolk.Entites.Schedule", b =>
                 {
-                    b.Property<Guid>("ScheduleId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("AudienceId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("Day")
+                    b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
                     b.Property<Guid>("GroupId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("NumberLesson")
+                    b.Property<int>("LessonNumber")
                         .HasColumnType("int");
 
                     b.Property<Guid>("SubjectId")
@@ -76,49 +76,45 @@ namespace Wolk.Migrations
                     b.Property<Guid>("TeacherId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("ScheduleId");
+                    b.HasKey("Id");
 
-                    b.HasIndex("AudienceId")
-                        .IsUnique();
+                    b.HasIndex("AudienceId");
 
-                    b.HasIndex("GroupId")
-                        .IsUnique();
+                    b.HasIndex("GroupId");
 
-                    b.HasIndex("SubjectId")
-                        .IsUnique();
+                    b.HasIndex("SubjectId");
 
-                    b.HasIndex("TeacherId")
-                        .IsUnique();
+                    b.HasIndex("TeacherId");
 
                     b.ToTable("Schedules");
                 });
 
             modelBuilder.Entity("Wolk.Entites.Subject", b =>
                 {
-                    b.Property<Guid>("SubjectId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("NameSubject")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("SubjectId");
+                    b.HasKey("Id");
 
                     b.ToTable("Subjects");
                 });
 
             modelBuilder.Entity("Wolk.Entites.Teacher", b =>
                 {
-                    b.Property<Guid>("TeacherId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("FLMName")
+                    b.Property<string>("FullName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("TeacherId");
+                    b.HasKey("Id");
 
                     b.ToTable("Teachers");
                 });
@@ -126,26 +122,26 @@ namespace Wolk.Migrations
             modelBuilder.Entity("Wolk.Entites.Schedule", b =>
                 {
                     b.HasOne("Wolk.Entites.Audience", "Audience")
-                        .WithOne("Schedule")
-                        .HasForeignKey("Wolk.Entites.Schedule", "AudienceId")
+                        .WithMany("Schedules")
+                        .HasForeignKey("AudienceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Wolk.Entites.Group", "Group")
-                        .WithOne("Schedule")
-                        .HasForeignKey("Wolk.Entites.Schedule", "GroupId")
+                        .WithMany("Schedules")
+                        .HasForeignKey("GroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Wolk.Entites.Subject", "Subject")
-                        .WithOne("Schedule")
-                        .HasForeignKey("Wolk.Entites.Schedule", "SubjectId")
+                        .WithMany("Schedules")
+                        .HasForeignKey("SubjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Wolk.Entites.Teacher", "Teacher")
-                        .WithOne("Schedule")
-                        .HasForeignKey("Wolk.Entites.Schedule", "TeacherId")
+                        .WithMany("Schedules")
+                        .HasForeignKey("TeacherId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -160,26 +156,22 @@ namespace Wolk.Migrations
 
             modelBuilder.Entity("Wolk.Entites.Audience", b =>
                 {
-                    b.Navigation("Schedule")
-                        .IsRequired();
+                    b.Navigation("Schedules");
                 });
 
             modelBuilder.Entity("Wolk.Entites.Group", b =>
                 {
-                    b.Navigation("Schedule")
-                        .IsRequired();
+                    b.Navigation("Schedules");
                 });
 
             modelBuilder.Entity("Wolk.Entites.Subject", b =>
                 {
-                    b.Navigation("Schedule")
-                        .IsRequired();
+                    b.Navigation("Schedules");
                 });
 
             modelBuilder.Entity("Wolk.Entites.Teacher", b =>
                 {
-                    b.Navigation("Schedule")
-                        .IsRequired();
+                    b.Navigation("Schedules");
                 });
 #pragma warning restore 612, 618
         }

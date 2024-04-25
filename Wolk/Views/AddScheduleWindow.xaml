@@ -3,67 +3,178 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Wolk"
+        xmlns:vm="clr-namespace:Wolk.ViewModels"
+        xmlns:local="clr-namespace:Wolk.Views"
         mc:Ignorable="d"
-        Title="AddScheduleWindow" Height="350" Width="655">
+        Title="AddScheduleWindow" Height="350" Width="800">
 
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="60*"/>
-            <ColumnDefinition Width="40*"/>
-        </Grid.ColumnDefinitions>
+	<Window.DataContext>
+		<vm:AddScheduleViewModel/>
+	</Window.DataContext>
 
-        <Grid Grid.Column="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="10*"/>
-                <RowDefinition Height="90*"/>
-            </Grid.RowDefinitions>
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="60*"/>
+			<ColumnDefinition Width="40*"/>
+		</Grid.ColumnDefinitions>
+
+		<Grid Grid.Column="0">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="10*"/>
+				<RowDefinition Height="90*"/>
+			</Grid.RowDefinitions>
+
+			<Grid Grid.Row="0">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="65"/>
+					<ColumnDefinition/>
+					<ColumnDefinition Width="75"/>
+					<ColumnDefinition Width="100"/>
+				</Grid.ColumnDefinitions>
+
+				<TextBlock
+                    Grid.Column="0"
+                    Margin="10, 0,5,0"
+                    Text="Группа"
+                    FontSize="14"/>
+				<ComboBox
+                    Grid.Column="1"
+                    Margin="5,0"
+                    ItemsSource="{Binding Groups}"
+                    SelectedItem="{Binding Group, UpdateSourceTrigger=PropertyChanged}"
+                    DisplayMemberPath="Name"/>
+				<TextBlock
+                    Grid.Column="2"
+                    Margin="5,0"
+                    Text="№ пары"
+                    FontSize="14"/>
+				<ComboBox
+                    Grid.Column="3"
+                    Margin="5,0,0,0"
+                    DisplayMemberPath="LessonNumber"/>
+			</Grid>
+
+			<ListView
+                Grid.Row="1"
+                ItemsSource="{Binding Schedules, UpdateSourceTrigger=PropertyChanged}"
+                SelectedItem="{Binding Schedule, UpdateSourceTrigger=PropertyChanged}"
+                Margin="10,10,0,10">
+
+				<ListView.View>
+					<GridView>
+						<GridViewColumn
+                            Header="Дата"
+                            DisplayMemberBinding="{Binding Day.Date, UpdateSourceTrigger=PropertyChanged}"/>
+						<GridViewColumn
+                            Header="№ пары"
+                            DisplayMemberBinding="{Binding LessonNumber, UpdateSourceTrigger=PropertyChanged}"/>
+						<GridViewColumn
+                            Header="Предмет"
+                            DisplayMemberBinding="{Binding Subject.Name, UpdateSourceTrigger=PropertyChanged}"/>
+						<GridViewColumn
+                            Header="Преподователь"
+                            DisplayMemberBinding="{Binding Teacher.FullName, UpdateSourceTrigger=PropertyChanged}"/>
+						<GridViewColumn
+                            Header="Аудитория"
+                            DisplayMemberBinding="{Binding Audience.Number, UpdateSourceTrigger=PropertyChanged}"/>
+						<GridViewColumn
+                            Header="Группа"
+                            DisplayMemberBinding="{Binding Group.Name, UpdateSourceTrigger=PropertyChanged}"/>
+					</GridView>
+				</ListView.View>
+			</ListView>
+		</Grid>
+
+		<Grid Grid.Column="1">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="16*"/>
+				<RowDefinition Height="19*"/>
+				<RowDefinition Height="19*"/>
+				<RowDefinition Height="46*"/>
+			</Grid.RowDefinitions>
+
+			<Grid Grid.Row="0">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="150"/>
+					<ColumnDefinition/>
+				</Grid.ColumnDefinitions>
+
+				<Grid Grid.Column="0">
+					<TextBlock
+                        Margin="12,0,7,10"
+                        Text="Дата"
+                        FontSize="14"/>
+					<DatePicker
+                        x:Name="dpDate"
+                        SelectedDate="{Binding Date, UpdateSourceTrigger=PropertyChanged}"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Width="140"
+                        Margin="10,20,0,0"/>
+				</Grid>
+
+				<Grid Grid.Column="1">
+					<TextBlock
+                        Margin="10,0"
+                        Text="Аудитория"
+                        FontSize="14"/>
+					<ComboBox
+                        ItemsSource="{Binding Audiences}"
+                        SelectedItem="{Binding Audience, UpdateSourceTrigger=PropertyChanged}"
+                        DisplayMemberPath="Number"
+                        Margin="10,20,10,10"/>
+				</Grid>
+
+			</Grid>
+			<Grid Grid.Row="1">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="20"/>
+					<RowDefinition/>
+				</Grid.RowDefinitions>
+
+				<TextBlock
+                    Margin="10,0"
+                    Text="Предмет"
+                    Grid.RowSpan="2"/>
+
+				<ComboBox
+                    Grid.Row="1"
+                    ItemsSource="{Binding Subjects}"
+                    Margin="10,0"
+                    SelectedItem="{Binding Subject, UpdateSourceTrigger=PropertyChanged}"
+                    DisplayMemberPath="Name"/>
+			</Grid>
 
 
-            <ComboBox Grid.Row="0" Margin="10,1,190,0"/>
-            <ListView ItemsSource="{Binding Shedule, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedSchedule, UpdateSourceTrigger=PropertyChanged}" Margin="10,10,0,10" Grid.Row="1">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Дата" DisplayMemberBinding="{Binding Day}"/>
-                        <GridViewColumn Header="Предмет" DisplayMemberBinding="{Binding Subject}"/>
-                        <GridViewColumn Header="Преподователь" DisplayMemberBinding="{Binding LastName}"/>
-                        <GridViewColumn Header="Аудитория" DisplayMemberBinding="{Binding Audience}"/>
-                    </GridView>
-                </ListView.View>
-            </ListView>
-        </Grid>
+			<TextBlock
+                Grid.Row="2"
+                Margin="10,0,5,45"
+                Text="Преподователь"/>
 
-        <Grid Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="16*"/>
-                <RowDefinition Height="19*"/>
-                <RowDefinition Height="19*"/>
-                <RowDefinition Height="46*"/>
+			<ComboBox
+                Grid.Row="2"
+                ItemsSource="{Binding Teachers}"
+                Margin="10,18,10,3"
+                SelectedItem="{Binding Teacher, UpdateSourceTrigger=PropertyChanged}"
+                DisplayMemberPath="FullName"/>
 
-            </Grid.RowDefinitions>
+			<Button
+                Grid.Row="3"
+                Margin="10,11,10,104"
+                Content="Добавить запись"
+                Command="{Binding AddScheduleCommand}"/>
 
+			<Button
+                Grid.Row="3"
+                Margin="10,58,10,57"
+                Content="Удалить запись"
+                Command="{Binding DeleteScheduleCommand}"/>
 
-            <Grid Grid.Row="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="150"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-
-                <TextBlock Grid.Column="0" Margin="12,0,7,10" Text="Дата" FontSize="14"/>
-                <TextBlock Grid.Column="1" Margin="10,0,10,34" Text="Аудитория" FontSize="14"/>
-                <DatePicker SelectedDate="{Binding SelectedDate, Mode=TwoWay}" Grid.Column="0" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="140" Margin="10,20,0,0"/>
-                <ComboBox ItemsSource="{Binding Audience}" SelectedItem="{Binding SelectedAudience, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Margin="10,20,10,10"/>
-            </Grid>
-
-            <TextBlock  Margin="10,53,5,45" Text="Предмет" Grid.RowSpan="2"/>
-            <ComboBox Grid.Row="1" ItemsSource="{Binding Subject}" Margin="10,19,10,9" SelectedItem="{Binding SelectedSubject, UpdateSourceTrigger=PropertyChanged}"/>
-
-            <TextBlock Grid.Row="2" Margin="10,0,5,45" Text="Преподователь"/>
-            <ComboBox Grid.Row="2" ItemsSource="{Binding Teacher}" Margin="10,18,10,3" SelectedItem="{Binding SelectedTeacher, UpdateSourceTrigger=PropertyChanged}"/>
-
-            <Button Grid.Row="3" Margin="10,11,10,104" Content="Добавить запись" Command="{Binding CreateItemCommand}" />
-            <Button Grid.Row="3" Margin="10,58,10,57" Content="Удалить запись" Command="{Binding DeleteItemCommand}"/>
-            <Button Grid.Row="3" Content="Изменить данные" Margin="10,107,10,10" Command="{Binding ChangeItemCommand}" FontSize="14" Click="ChangeButton_Click"/>
-        </Grid>
-    </Grid>
+			<Button
+                Grid.Row="3"
+                Content="Изменить данные"
+                Margin="10,107,10,10"
+                Command="{Binding OpenChangeClassesDatasWindowCommand}" FontSize="14"/>
+		</Grid>
+	</Grid>
 </Window>

@@ -15,57 +15,57 @@ namespace Wolk.Migrations
                 name: "Audiences",
                 columns: table => new
                 {
-                    AudienceId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    NumberAudience = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Number = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Audiences", x => x.AudienceId);
+                    table.PrimaryKey("PK_Audiences", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Groups",
                 columns: table => new
                 {
-                    GroupId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    GroupName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Groups", x => x.GroupId);
+                    table.PrimaryKey("PK_Groups", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Subjects",
                 columns: table => new
                 {
-                    SubjectId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    NameSubject = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Subjects", x => x.SubjectId);
+                    table.PrimaryKey("PK_Subjects", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Teachers",
                 columns: table => new
                 {
-                    TeacherId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    FLMName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Teachers", x => x.TeacherId);
+                    table.PrimaryKey("PK_Teachers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Schedules",
                 columns: table => new
                 {
-                    ScheduleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Day = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    NumberLesson = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LessonNumber = table.Column<int>(type: "int", nullable: false),
                     SubjectId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     TeacherId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     AudienceId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -73,56 +73,52 @@ namespace Wolk.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Schedules", x => x.ScheduleId);
+                    table.PrimaryKey("PK_Schedules", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Schedules_Audiences_AudienceId",
                         column: x => x.AudienceId,
                         principalTable: "Audiences",
-                        principalColumn: "AudienceId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Schedules_Groups_GroupId",
                         column: x => x.GroupId,
                         principalTable: "Groups",
-                        principalColumn: "GroupId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Schedules_Subjects_SubjectId",
                         column: x => x.SubjectId,
                         principalTable: "Subjects",
-                        principalColumn: "SubjectId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Schedules_Teachers_TeacherId",
                         column: x => x.TeacherId,
                         principalTable: "Teachers",
-                        principalColumn: "TeacherId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Schedules_AudienceId",
                 table: "Schedules",
-                column: "AudienceId",
-                unique: true);
+                column: "AudienceId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Schedules_GroupId",
                 table: "Schedules",
-                column: "GroupId",
-                unique: true);
+                column: "GroupId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Schedules_SubjectId",
                 table: "Schedules",
-                column: "SubjectId",
-                unique: true);
+                column: "SubjectId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Schedules_TeacherId",
                 table: "Schedules",
-                column: "TeacherId",
-                unique: true);
+                column: "TeacherId");
         }
 
         /// <inheritdoc />

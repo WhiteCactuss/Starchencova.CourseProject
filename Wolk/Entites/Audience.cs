@@ -8,17 +8,17 @@ namespace Wolk.Entites
 {
     public class Audience
     {
-        public Guid AudienceId { get; set; }
-        public string NumberAudience { get; set; }
+        public Guid Id { get; set; }
+        public string Number { get; set; }
 
-        public Schedule Schedule { get; set; }
+        public List<Schedule> Schedules { get; set; }
 
         private Audience() { }
         
-        public Audience(string numberAudience)
+        public Audience(string number)
         {
-            AudienceId = Guid.NewGuid();
-            NumberAudience = numberAudience;
+            Id = Guid.NewGuid();
+            Number = number;
         }
     }
 }

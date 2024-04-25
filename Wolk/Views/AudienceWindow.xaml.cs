@@ -15,19 +15,13 @@ using System.Windows.Shapes;
 namespace Wolk.Views
 {
     /// <summary>
-    /// Логика взаимодействия для AddScheduleWindow.xaml
+    /// Логика взаимодействия для AudiencesWindow.xaml
     /// </summary>
-    public partial class AddScheduleWindow : Window
+    public partial class AudiencesWindow : Window
     {
-        public AddScheduleWindow()
+        public AudiencesWindow()
         {
-            //InitializeComponent();
-            
-        }
-        private void ChangeButton_Click(object sender, RoutedEventArgs e)
-        {
-            Window2 createdata = new Window2();
-            createdata.Show();
+            InitializeComponent();
         }
     }
 }

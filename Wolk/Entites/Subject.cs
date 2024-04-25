@@ -8,17 +8,17 @@ namespace Wolk.Entites
 {
     public class Subject
     {
-        public Guid SubjectId { get; set; }
-        public string NameSubject { get; set; }
+        public Guid Id { get; set; }
+        public string Name { get; set; }
 
-        public Schedule Schedule { get; set; }
+        public List<Schedule> Schedules { get; set; }
 
         private Subject() { }
 
-        public Subject(string nameObj)
+        public Subject(string name)
         {
-            SubjectId = Guid.NewGuid();
-            NameSubject = nameObj;
+            Id = Guid.NewGuid();
+            Name = name;
         }
     }
 }

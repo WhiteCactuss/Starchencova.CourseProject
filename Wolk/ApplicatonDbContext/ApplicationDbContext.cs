@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.VisualBasic.ApplicationServices;
 using System;
 using System.Collections.Generic;
@@ -14,9 +15,9 @@ namespace Wolk.ApplicatonDbContext
     public class ApplicationDbContext : DbContext
     {
         //public const string ConnectionString = @"Server=localhost\SQLExpress;Database=Schedule;Trusted_Connection=true;Encrypt=false"; //Home
-        public const string ConnectionString = @"Server=PC-232-10;Database=Schedule;Trusted_Connection=true;Encrypt=false"; //RRV
-        //public const string ConnectionString = @"Server=(localdb)\MSSQLLocalDB;Database=Schedule;Trusted_Connection=true;Encrypt=false"; //LHK
-        
+        //public const string ConnectionString = @"Server=PC-232-10;Database=Schedule;Trusted_Connection=true;Encrypt=false"; //RRV
+        public const string ConnectionString = @"Server=(localdb)\MSSQLLocalDB;Database=Schedule;Trusted_Connection=true;Encrypt=false"; //LHK
+
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<Audience> Audiences { get; set; }
         public DbSet<Group> Groups { get; set; }
@@ -30,32 +31,33 @@ namespace Wolk.ApplicatonDbContext
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Subject>().HasKey(x => x.SubjectId);
+            modelBuilder.Entity<Subject>().HasKey(x => x.Id);
 
-            modelBuilder.Entity<Audience>().HasKey(x => x.AudienceId);
+            modelBuilder.Entity<Audience>().HasKey(x => x.Id);
             
-            modelBuilder.Entity<Group>().HasKey(x => x.GroupId);
+            modelBuilder.Entity<Group>().HasKey(x => x.Id);
 
-            modelBuilder.Entity<Schedule>().HasKey(x => x.ScheduleId);
+            modelBuilder.Entity<Schedule>().HasKey(x => x.Id);
 
-            modelBuilder.Entity<Teacher>().HasKey(x => x.TeacherId);
+            modelBuilder.Entity<Teacher>().HasKey(x => x.Id);
 
             modelBuilder.Entity<Subject>()
-                .HasOne(s => s.Schedule)
-                .WithOne(o => o.Subject)
-                .HasForeignKey<Schedule>(x => x.SubjectId)
+                .HasMany(s => s.Schedules)
+                .WithOne(x => x.Subject)
+                .HasForeignKey(x => x.SubjectId)
                 .IsRequired();
 
             modelBuilder.Entity<Teacher>()
-                .HasOne(s => s.Schedule)
-                .WithOne(t => t.Teacher)
-                .HasForeignKey<Schedule>(x => x.TeacherId)
+                .HasMany(t => t.Schedules)
+                .WithOne(s => s.Teacher)
+                .HasForeignKey(s => s.TeacherId)
                 .IsRequired();
 
+
             modelBuilder.Entity<Audience>()
-                .HasOne(s => s.Schedule)
-                .WithOne(a => a.Audience)
-                .HasForeignKey<Schedule>(x => x.AudienceId)
+                .HasMany(s => s.Schedules)
+                .WithOne(x => x.Audience)
+                .HasForeignKey(x => x.AudienceId)
                 .IsRequired();
 
         }

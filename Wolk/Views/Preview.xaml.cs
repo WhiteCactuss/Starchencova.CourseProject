@@ -30,12 +30,8 @@ namespace Wolk
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Window1 taskWindow = new Window1();
+            AddScheduleWindow taskWindow = new AddScheduleWindow();
             taskWindow.Show();
-        }
-        private void SaveButton_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿<Window x:Class="Wolk.Views.GroupsWindow"
+﻿<Window x:Class="Wolk.Views.AudiencesWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,10 +6,10 @@
         xmlns:local="clr-namespace:Wolk.Views"
         xmlns:vm="clr-namespace:Wolk.ViewModels"
         mc:Ignorable="d"
-        Title="GroupsWindow" Height="250" Width="320">
+        Title="AudiencesWindow" Height="250" Width="310">
 
     <Window.DataContext>
-        <vm:GroupsViewModel/>
+        <vm:AudiencesViewModel/>
     </Window.DataContext>
     
     <Grid>
@@ -18,11 +18,11 @@
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
 
-        <ListView Grid.Row="0" ItemsSource="{Binding Groups, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedGroup, UpdateSourceTrigger=PropertyChanged}">
+        <ListView Grid.Row="0" ItemsSource="{Binding Audiences, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedAudience, UpdateSourceTrigger=PropertyChanged}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Идентификатор" DisplayMemberBinding="{Binding GroupId, UpdateSourceTrigger=PropertyChanged}"/>
-                    <GridViewColumn Header="Название" DisplayMemberBinding="{Binding NameGroup, UpdateSourceTrigger=PropertyChanged}"/>
+                    <GridViewColumn Header="Идентификатор" DisplayMemberBinding="{Binding AudienceId, UpdateSourceTrigger=PropertyChanged}"/>
+                    <GridViewColumn Header="Название" DisplayMemberBinding="{Binding NumberAudience, UpdateSourceTrigger=PropertyChanged}"/>
                 </GridView>
             </ListView.View>
         </ListView>
@@ -33,9 +33,9 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" Margin="8" Content="Добавить" Command="{Binding OpenAddGroupWindowCommand}"/>
+            <Button Grid.Column="0" Margin="8" Content="Добавить" Command="{Binding OpenAddAudienceWindowCommand}"/>
 
-            <Button Grid.Column="1" Margin="8" Content="Удалить" Command="{Binding RemoveGroupCommand}"/>
+            <Button Grid.Column="1" Margin="8" Content="Удалить" Command="{Binding RemoveAudienceCommand}"/>
         </Grid>
     </Grid>
 </Window>

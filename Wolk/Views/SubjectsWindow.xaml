@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Wolk.Views"
         xmlns:vm="clr-namespace:Wolk.ViewModels"
         mc:Ignorable="d"
-        Title="SubjectsWindow" Height="250" Width="Auto">
+        Title="SubjectsWindow" Height="250" Width="310">
 
     <Window.DataContext>
         <vm:SubjectsViewModel/>

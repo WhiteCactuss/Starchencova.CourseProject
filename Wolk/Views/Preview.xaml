@@ -356,7 +356,7 @@
             </Grid>
             <StackPanel Grid.Row="3" Orientation="Horizontal">
                 <Button Height="30" Content="Новое окно" Click="Button_Click" FontSize="14" FontWeight="Bold"/>
-                <Button Content="Сохранить расписание" FontSize="14" FontWeight="Bold" Click="SaveButton_Click"/>
+                <Button Content="Сохранить расписание" FontSize="14" FontWeight="Bold"/>
             </StackPanel>
         </Grid>
     </Grid>
