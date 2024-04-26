@@ -25,6 +25,7 @@ public class SubjectsViewModel : ReactiveObject
     {
 		using(ApplicationDbContext context = new())
 		{
+			//OpenExisting.ItemsSource = dt.DefaultView
 			Subjects = new ObservableCollection<Subject>(context.Subjects.ToList());
 		}
     }

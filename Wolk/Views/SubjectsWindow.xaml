@@ -18,7 +18,7 @@
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
 
-        <ListView Grid.Row="0" ItemsSource="{Binding Subjects, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedSubject, UpdateSourceTrigger=PropertyChanged}">
+        <ListView x:Name="Subj" Grid.Row="0" ItemsSource="{Binding Subjects, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedSubject, UpdateSourceTrigger=PropertyChanged}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Идентификатор" DisplayMemberBinding="{Binding SubjectId, UpdateSourceTrigger=PropertyChanged}"/>

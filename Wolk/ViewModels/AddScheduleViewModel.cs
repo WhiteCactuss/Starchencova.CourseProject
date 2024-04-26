@@ -18,6 +18,8 @@ public class AddScheduleViewModel : ReactiveObject
     private readonly List<Subject> _subjects;
     private readonly List<Teacher> _teachers;
 
+    ApplicationDbContext context = new ApplicationDbContext();
+
     public ObservableCollection<Schedule> Schedules => _schedules;
     public List<Audience> Audiences => _audiences;
     public List<Group> Groups => _groups;
@@ -61,21 +63,18 @@ public class AddScheduleViewModel : ReactiveObject
 
     public AddScheduleViewModel()
     {
-        using(ApplicationDbContext context = new())
-        {
-            _schedules = new ObservableCollection<Schedule>(
-                context.Schedules
-                    .Include(x => x.Teacher)
-                    .Include(x => x.Audience) 
-                    .Include(x => x.Group)
-                    .Include(x => x.Subject)
-                    .ToList());
+        _schedules = new ObservableCollection<Schedule>(
+            context.Schedules
+                .Include(x => x.Teacher)
+                .Include(x => x.Audience) 
+                .Include(x => x.Group)
+                .Include(x => x.Subject)
+                .ToList());
 
-            _audiences = context.Audiences.ToList();
-            _groups = context.Groups.ToList();
-            _subjects = context.Subjects.ToList();
-            _teachers = context.Teachers.ToList();
-        }
+        _audiences = context.Audiences.ToList();
+        _groups = context.Groups.ToList();
+        _subjects = context.Subjects.ToList();
+        _teachers = context.Teachers.ToList();
     }
 
     public ReactiveCommand<object, Unit> AddScheduleCommand => ReactiveCommand.Create<object>(o =>
@@ -112,20 +111,17 @@ public class AddScheduleViewModel : ReactiveObject
             _audience.Id, 
             _group.Id);
 
-        using(ApplicationDbContext context = new())
-        {
-            context.Schedules.Add(schedule);
-            var result = context.SaveChanges();
-            if (result > 0)
-                _schedules.Add(new Schedule(
-                    schedule.Id,
-                    schedule.Date,
-                    schedule.LessonNumber,
-                    _subject,
-                    _teacher,
-                    _audience,
-                    _group));
-        }
+        context.Schedules.Add(schedule);
+        var result = context.SaveChanges();
+        if (result > 0)
+            _schedules.Add(new Schedule(
+                schedule.Id,
+                schedule.Date,
+                schedule.LessonNumber,
+                _subject,
+                _teacher,
+                _audience,
+                _group));
     });
 
     private Schedule _schedule;
@@ -137,14 +133,11 @@ public class AddScheduleViewModel : ReactiveObject
    
     public ReactiveCommand<object, Unit> DeleteScheduleCommand => ReactiveCommand.Create<object>(o =>
     {
-        using (ApplicationDbContext context = new())
+        context.Schedules.Remove(_schedule);
+        var result = context.SaveChanges();
+        if (result > 0)
         {
-            context.Schedules.Remove(_schedule);
-            var result = context.SaveChanges();
-            if (result > 0)
-            {
-                Schedules.Remove(_schedule);
-            }
+            Schedules.Remove(_schedule);
         }
     });
 

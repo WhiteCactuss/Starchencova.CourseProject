@@ -11,7 +11,9 @@ public class AddAudienceViewModel : ReactiveObject
 {
 	private readonly ObservableCollection<Audience> _audiences;
 
-	private string _name;
+    ApplicationDbContext context = new ApplicationDbContext();
+
+    private string _name;
 
 	public string Name
 	{
@@ -34,16 +36,13 @@ public class AddAudienceViewModel : ReactiveObject
 
 		var audience = new Audience(_name);
 
-		using(ApplicationDbContext context = new())
+		context.Audiences.Add(audience);
+		var result = context.SaveChanges();
+		if(result > 0)
 		{
-			context.Audiences.Add(audience);
-			var result = context.SaveChanges();
-			if(result > 0)
-			{
-                _audiences.Add(audience);
-                MessageBox.Show($"Аудитория {Name} была добавлена!", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
+            _audiences.Add(audience);
+            MessageBox.Show($"Аудитория {Name} была добавлена!", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
 
-            }
         }
 	});
 }

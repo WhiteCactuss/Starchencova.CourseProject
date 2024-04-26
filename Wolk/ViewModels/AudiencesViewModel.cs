@@ -12,7 +12,9 @@ public class AudiencesViewModel : ReactiveObject
 {
 	private readonly ObservableCollection<Audience> _audiences;
 
-	public ObservableCollection<Audience> Audiences { get; set; }
+    ApplicationDbContext context = new ApplicationDbContext();
+
+    public ObservableCollection<Audience> Audiences { get; set; }
 
 	private Audience _selectedAudience;
 
@@ -24,22 +26,16 @@ public class AudiencesViewModel : ReactiveObject
 
 	public AudiencesViewModel()
     {
-		using(ApplicationDbContext context = new())
-		{
-            Audiences = new ObservableCollection<Audience>(context.Audiences.ToList());
-		}
+        Audiences = new ObservableCollection<Audience>(context.Audiences.ToList());
     }
 
 	public ReactiveCommand<object, Unit> RemoveAudienceCommand => ReactiveCommand.Create<object>(o =>
 	{
-        using (ApplicationDbContext context = new())
-        {
-			context.Audiences.Remove(SelectedAudience);
-			var result = context.SaveChanges();
-			if(result > 0)
-			{
-                Audiences.Remove(SelectedAudience);
-            }
+		context.Audiences.Remove(SelectedAudience);
+		var result = context.SaveChanges();
+		if(result > 0)
+		{
+            Audiences.Remove(SelectedAudience);
         }
     });
 

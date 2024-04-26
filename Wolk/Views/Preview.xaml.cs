@@ -30,7 +30,7 @@ namespace Wolk
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            AddScheduleWindow taskWindow = new AddScheduleWindow();
+            AddSchedulesWindow taskWindow = new AddSchedulesWindow();
             taskWindow.Show();
         }
     }
