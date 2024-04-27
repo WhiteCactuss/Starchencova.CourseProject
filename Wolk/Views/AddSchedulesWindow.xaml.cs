@@ -22,11 +22,8 @@ namespace Wolk.Views
         public AddSchedulesWindow()
         {
             InitializeComponent();
-        }
-        private void ChangeButton_Click(object sender, RoutedEventArgs e)
-        {
-            Window2 createdata = new Window2();
-            createdata.Show();
+            DateTime initialDate = new DateTime(2024, 05, 01);
+            datePicker.SelectedDate = initialDate;
         }
     }
 }

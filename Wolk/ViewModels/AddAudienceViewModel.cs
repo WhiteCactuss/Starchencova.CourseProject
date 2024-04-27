@@ -42,7 +42,6 @@ public class AddAudienceViewModel : ReactiveObject
 		{
             _audiences.Add(audience);
             MessageBox.Show($"Аудитория {Name} была добавлена!", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
-
         }
 	});
 }

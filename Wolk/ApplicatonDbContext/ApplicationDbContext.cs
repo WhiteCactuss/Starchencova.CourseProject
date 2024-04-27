@@ -15,8 +15,8 @@ namespace Wolk.ApplicatonDbContext
     public class ApplicationDbContext : DbContext
     {
         //public const string ConnectionString = @"Server=localhost\SQLExpress;Database=Schedule;Trusted_Connection=true;Encrypt=false"; //Home
-        public const string ConnectionString = @"Server=PC-232-10;Database=Schedule;Trusted_Connection=true;Encrypt=false"; //RRV
-        //public const string ConnectionString = @"Server=(localdb)\MSSQLLocalDB;Database=Schedule;Trusted_Connection=true;Encrypt=false"; //LHK
+        //public const string ConnectionString = @"Server=PC-232-10;Database=Schedule;Trusted_Connection=true;Encrypt=false"; //RRV
+        public const string ConnectionString = @"Server=(localdb)\MSSQLLocalDB;Database=Schedule;Trusted_Connection=true;Encrypt=false"; //LHK
 
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<Audience> Audiences { get; set; }

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Wolk.Views"
         xmlns:vm="clr-namespace:Wolk.ViewModels"
         mc:Ignorable="d"
-        Title="AddSchedulesWindow" Height="450" Width="800">
+        Title="AddSchedulesWindow" Height="450" Width="950">
 
     <Window.DataContext>
         <vm:AddScheduleViewModel/>
@@ -14,8 +14,8 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="60*"/>
-            <ColumnDefinition Width="40*"/>
+            <ColumnDefinition Width="65*"/>
+            <ColumnDefinition Width="35*"/>
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Column="0">
@@ -33,52 +33,52 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock
-                Grid.Column="0"
-                Margin="10, 0,5,0"
-                Text="Группа"
-                FontSize="14"/>
+                    Grid.Column="0"
+                    Margin="10, 0,5,0"
+                    Text="Группа"
+                    FontSize="14"/>
                 <ComboBox
-                Grid.Column="1"
-                Margin="5,0"
-                ItemsSource="{Binding Groups}"
-                SelectedItem="{Binding Group, UpdateSourceTrigger=PropertyChanged}"
-                DisplayMemberPath="Name"/>
+                    Grid.Column="1"
+                    Margin="5,0"
+                    ItemsSource="{Binding Groups}"
+                    SelectedItem="{Binding Group, UpdateSourceTrigger=PropertyChanged}"
+                    DisplayMemberPath="Name"/>
                 <TextBlock
-                Grid.Column="2"
-                Margin="5,0"
-                Text="№ пары"
-                FontSize="14"/>
+                    Grid.Column="2"
+                    Margin="5,0"
+                    Text="№ пары"
+                    FontSize="14"/>
                 <ComboBox
-                Grid.Column="3"
-                Margin="5,0,0,0"
-                DisplayMemberPath="LessonNumber"/>
+                    Grid.Column="3"
+                    Margin="5,0,0,0"
+                    DisplayMemberPath="Number"/>
             </Grid>
 
             <ListView
-            Grid.Row="1"
-            ItemsSource="{Binding Schedules, UpdateSourceTrigger=PropertyChanged}"
-            SelectedItem="{Binding Schedule, UpdateSourceTrigger=PropertyChanged}"
-            Margin="10,10,0,10">
+                Grid.Row="1"
+                ItemsSource="{Binding Schedules, UpdateSourceTrigger=PropertyChanged}"
+                SelectedItem="{Binding Schedule, UpdateSourceTrigger=PropertyChanged}"
+                Margin="10,10,0,10">
 
                 <ListView.View>
                     <GridView>
                         <GridViewColumn
-                        Header="Дата"
-                        DisplayMemberBinding="{Binding Day.Date, UpdateSourceTrigger=PropertyChanged}"/>
+                        Header="Дата" Width="auto"
+                        DisplayMemberBinding="{Binding Date.Date, UpdateSourceTrigger=PropertyChanged}"/>
                         <GridViewColumn
-                        Header="№ пары"
+                        Header="№ пары" Width="auto"
                         DisplayMemberBinding="{Binding LessonNumber, UpdateSourceTrigger=PropertyChanged}"/>
                         <GridViewColumn
-                        Header="Предмет"
+                        Header="Предмет" Width="auto"
                         DisplayMemberBinding="{Binding Subject.Name, UpdateSourceTrigger=PropertyChanged}"/>
                         <GridViewColumn
-                        Header="Преподователь"
+                        Header="Преподователь" Width="auto"
                         DisplayMemberBinding="{Binding Teacher.FullName, UpdateSourceTrigger=PropertyChanged}"/>
                         <GridViewColumn
-                        Header="Аудитория"
+                        Header="Аудитория" Width="auto"
                         DisplayMemberBinding="{Binding Audience.Number, UpdateSourceTrigger=PropertyChanged}"/>
                         <GridViewColumn
-                        Header="Группа"
+                        Header="Группа" Width="auto"
                         DisplayMemberBinding="{Binding Group.Name, UpdateSourceTrigger=PropertyChanged}"/>
                     </GridView>
                 </ListView.View>
@@ -90,7 +90,10 @@
                 <RowDefinition Height="16*"/>
                 <RowDefinition Height="19*"/>
                 <RowDefinition Height="19*"/>
-                <RowDefinition Height="46*"/>
+                <RowDefinition Height="19*"/>
+                <RowDefinition Height="19*"/>
+                <RowDefinition Height="19*"/>
+                <RowDefinition Height="19*"/>
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0">
@@ -101,16 +104,16 @@
 
                 <Grid Grid.Column="0">
                     <TextBlock
-                    Margin="12,0,7,10"
-                    Text="Дата"
-                    FontSize="14"/>
+                        Margin="12,0,7,10"
+                        Text="Дата"
+                        FontSize="14"/>
                     <DatePicker
-                    x:Name="dpDate"
-                    SelectedDate="{Binding Date, UpdateSourceTrigger=PropertyChanged}"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Width="140"
-                    Margin="10,20,0,0"/>
+                        x:Name="datePicker"
+                        SelectedDate="{Binding Date, UpdateSourceTrigger=PropertyChanged}"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Width="140"
+                        Margin="10,20,0,0"/>
                 </Grid>
 
                 <Grid Grid.Column="1">
@@ -118,7 +121,7 @@
                     Margin="10,0"
                     Text="Аудитория"
                     FontSize="14"/>
-                    <ComboBox
+                    <ComboBox x:Name="AudComboBox"
                     ItemsSource="{Binding Audiences}"
                     SelectedItem="{Binding Audience, UpdateSourceTrigger=PropertyChanged}"
                     DisplayMemberPath="Number"
@@ -145,36 +148,59 @@
                 DisplayMemberPath="Name"/>
             </Grid>
 
+            <Grid Grid.Row="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
 
-            <TextBlock
-            Grid.Row="2"
-            Margin="10,0,5,45"
-            Text="Преподователь"/>
+                <TextBlock
+                    Grid.Row="0"
+                    Margin="10,0"
+                    Text="Преподователь"/>
 
-            <ComboBox
-            Grid.Row="2"
-            ItemsSource="{Binding Teachers}"
-            Margin="10,18,10,3"
-            SelectedItem="{Binding Teacher, UpdateSourceTrigger=PropertyChanged}"
-            DisplayMemberPath="FullName"/>
-
+                <ComboBox
+                    Grid.Row="1"
+                    ItemsSource="{Binding Teachers}"
+                    Margin="10,0"
+                    SelectedItem="{Binding Teacher, UpdateSourceTrigger=PropertyChanged}"
+                    DisplayMemberPath="FullName"/>
+            </Grid>
             <Button
             Grid.Row="3"
-            Margin="10,11,10,104"
+            Margin="10"
             Content="Добавить запись"
             Command="{Binding AddScheduleCommand}"/>
 
             <Button
-            Grid.Row="3"
-            Margin="10,58,10,57"
+            Grid.Row="4"
+            Margin="10"
             Content="Удалить запись"
             Command="{Binding DeleteScheduleCommand}"/>
 
             <Button
-            Grid.Row="3"
+            Grid.Row="5"
             Content="Изменить данные"
-            Margin="10,107,10,10"
+            Margin="10"
             Command="{Binding OpenChangeClassesDatasWindowCommand}" FontSize="14"/>
+
+            <Grid Grid.Row="6">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Button
+                    Grid.Column="0"
+                    Content="Обновить данные"
+                    Margin="10"
+                    Command="{Binding UpdateDatasCommand}" FontSize="14"/>
+                <Button
+                    Grid.Column="1"
+                    Content="Предпросмотр"
+                    Margin="10"
+                    Command="{Binding OpenPreviewWindowCommand}" FontSize="14"/>
+            </Grid>
         </Grid>
     </Grid>
 </Window>

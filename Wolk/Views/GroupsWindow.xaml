@@ -21,8 +21,8 @@
         <ListView Grid.Row="0" ItemsSource="{Binding Groups, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedGroup, UpdateSourceTrigger=PropertyChanged}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Идентификатор" DisplayMemberBinding="{Binding GroupId, UpdateSourceTrigger=PropertyChanged}"/>
-                    <GridViewColumn Header="Название" DisplayMemberBinding="{Binding NameGroup, UpdateSourceTrigger=PropertyChanged}"/>
+                    <GridViewColumn Header="Идентификатор" DisplayMemberBinding="{Binding Id, UpdateSourceTrigger=PropertyChanged}"/>
+                    <GridViewColumn Header="Название" DisplayMemberBinding="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
                 </GridView>
             </ListView.View>
         </ListView>
